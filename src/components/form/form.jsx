@@ -28,11 +28,11 @@ const Form = () => {
     // console.log(e.target.name)
     setInput({ ...input, [e.target.name]: e.target.value });
     setError(validator({ ...input, [e.target.name]: e.target.value }));
-  };
+  }
 
-  let handleSubmit =(e)=>{
+  let handleSubmit = (e) => {
     e.preventDefault();
-    setError(validator(input))
+    setError(validator(input));
     dispatch(postForm(input));
     setInput({
       full_name: "",
@@ -41,7 +41,7 @@ const Form = () => {
       country_of_origin: "",
       terms_and_conditions: false,
     });
-  }
+  };
 
   return (
     <div class={`card text-bg-dark p-3`}>
@@ -86,7 +86,14 @@ const Form = () => {
                     class="btn btn-primary"
                     value={e.label}
                     type={e.type}
-                    disabled={(error.full_name || error.email || error.birth_date || error.country_of_origin||form[0]==="forms")&&true}
+                    disabled={
+                      (error.full_name ||
+                        error.email ||
+                        error.birth_date ||
+                        error.country_of_origin ||
+                        form[0] === "forms") &&
+                      true
+                    }
                   />
                 )
               ) : (
@@ -96,7 +103,7 @@ const Form = () => {
                     class="form-select"
                     value={input.country_of_origin}
                     required={e.required}
-                    onChange={(e)=>handleChange(e)}
+                    onChange={(e) => handleChange(e)}
                   >
                     <option value="">{e.label}</option>
                     {e.options.map((j, index) => {
@@ -107,7 +114,7 @@ const Form = () => {
                       );
                     })}
                   </select>
-                  {error.country_of_origin&& (
+                  {error.country_of_origin && (
                     <div class="text-danger">Debe seleccionar un país.</div>
                   )}
                 </>
